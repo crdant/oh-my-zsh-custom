@@ -17,7 +17,11 @@ colorize_via_pygmentize() {
 
     # pygmentize stdin if no arguments passed
     if [ $# -eq 0 ]; then
+<<<<<<< HEAD
         pygmentize -O style="$ZSH_COLORIZE_STYLE" -g
+=======
+        pygmentize -f terminal -g
+>>>>>>> 67e0ef7a... edit colorize plugin: add `-f terminal` option
         return $?
     fi
 
@@ -29,9 +33,15 @@ colorize_via_pygmentize() {
     do
         lexer=$(pygmentize -N "$FNAME")
         if [[ $lexer != text ]]; then
+<<<<<<< HEAD
             pygmentize -O style="$ZSH_COLORIZE_STYLE" -l "$lexer" "$FNAME"
         else
             pygmentize -O style="$ZSH_COLORIZE_STYLE" -g "$FNAME"
+=======
+            pygmentize -f terminal -l "$lexer" "$FNAME"
+        else
+            pygmentize -f terminal -g "$FNAME"
+>>>>>>> 67e0ef7a... edit colorize plugin: add `-f terminal` option
         fi
     done
 }
