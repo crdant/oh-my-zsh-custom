@@ -4,6 +4,7 @@
 local curcontext=$curcontext state line
 declare -A opt_args
 
+<<<<<<< HEAD
 declare -a target_list
 target_list=("${(@f)$(fab -l 2>/dev/null | awk '{
     if (NF == 0 || NR == 1) return
@@ -14,6 +15,10 @@ target_list=("${(@f)$(fab -l 2>/dev/null | awk '{
         print $1":"docstring
     }
 }')}")
+=======
+declare target_list
+target_list=(`fab --shortlist 2>/dev/null || fab --complete 2>/dev/null`)
+>>>>>>> 1908f7bd... fabric: support fabric 2+ completion (#8010)
 
 _fab_targets() {
     [[ -n "$target_list" ]] || return
