@@ -58,6 +58,9 @@ function jira() {
     else
       open_command "${jira_url}/secure/Dashboard.jspa"
     fi
+  elif [[ "$action" == "tempo" ]]; then
+    echo "Opening tempo"
+    open_command "${jira_url}/secure/Tempo.jspa"
   elif [[ "$action" == "dumpconfig" ]]; then
     echo "JIRA_URL=$jira_url"
     echo "JIRA_PREFIX=$jira_prefix"
