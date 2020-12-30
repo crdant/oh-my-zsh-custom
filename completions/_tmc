@@ -1,0 +1,5322 @@
+#compdef _tmc tmc
+
+
+function _tmc {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "account:Account management"
+      "audit:Run an audit request on an org"
+      "cluster:A Kubernetes Cluster."
+      "clustergroup:A group of Kubernetes clusters."
+      "completion:Generate completion scripts."
+      "configure:Configure the current context environment"
+      "dataprotection:Backup, restore, or migrate cluster data."
+      "help:Help about any command"
+      "iam:Permission management for resources."
+      "login:Login to Tanzu Mission Control."
+      "managementcluster:A management cluster maintains the connection between a Tanzu Kubernetes Grid instance and the platform."
+      "organization:Organization level management."
+      "policy:Permission management for resources."
+      "system:System level configuration and resources."
+      "update:Update the CLI to the latest version."
+      "version:Print CLI version."
+      "workspace:A group of managed Kubernetes namespaces."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  account)
+    _tmc_account
+    ;;
+  audit)
+    _tmc_audit
+    ;;
+  cluster)
+    _tmc_cluster
+    ;;
+  clustergroup)
+    _tmc_clustergroup
+    ;;
+  completion)
+    _tmc_completion
+    ;;
+  configure)
+    _tmc_configure
+    ;;
+  dataprotection)
+    _tmc_dataprotection
+    ;;
+  help)
+    _tmc_help
+    ;;
+  iam)
+    _tmc_iam
+    ;;
+  login)
+    _tmc_login
+    ;;
+  managementcluster)
+    _tmc_managementcluster
+    ;;
+  organization)
+    _tmc_organization
+    ;;
+  policy)
+    _tmc_policy
+    ;;
+  system)
+    _tmc_system
+    ;;
+  update)
+    _tmc_update
+    ;;
+  version)
+    _tmc_version
+    ;;
+  workspace)
+    _tmc_workspace
+    ;;
+  esac
+}
+
+
+function _tmc_account {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "credential:The credential object defines a cloud provider account connection and the accompanying metadata to identify its capabilities."
+      "management-cluster:management cluster"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  credential)
+    _tmc_account_credential
+    ;;
+  management-cluster)
+    _tmc_account_management-cluster
+    ;;
+  esac
+}
+
+
+function _tmc_account_credential {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a credential object"
+      "delete:Delete a credential"
+      "get:Retrieve a credential object"
+      "iam:Access policy for a credential"
+      "list:Return a list of credentials"
+      "schema:Schema for the credential type"
+      "template:Templates for credential"
+      "update:Update (overwrite) a credential"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_account_credential_create
+    ;;
+  delete)
+    _tmc_account_credential_delete
+    ;;
+  get)
+    _tmc_account_credential_get
+    ;;
+  iam)
+    _tmc_account_credential_iam
+    ;;
+  list)
+    _tmc_account_credential_list
+    ;;
+  schema)
+    _tmc_account_credential_schema
+    ;;
+  template)
+    _tmc_account_credential_template
+    ;;
+  update)
+    _tmc_account_credential_update
+    ;;
+  esac
+}
+
+function _tmc_account_credential_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a credential]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the credential]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_credential_delete {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_credential_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_account_credential_iam {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "add-binding:Add a role binding in the access policy for a credential"
+      "get-policy:Retrieve the access policy for a credential"
+      "remove-binding:Remove a role binding from the access policy for a credential"
+      "test-permission:Test permissions for a credential"
+      "update-policy:Update (overwrite) policy for a credential"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  add-binding)
+    _tmc_account_credential_iam_add-binding
+    ;;
+  get-policy)
+    _tmc_account_credential_iam_get-policy
+    ;;
+  remove-binding)
+    _tmc_account_credential_iam_remove-binding
+    ;;
+  test-permission)
+    _tmc_account_credential_iam_test-permission
+    ;;
+  update-policy)
+    _tmc_account_credential_iam_update-policy
+    ;;
+  esac
+}
+
+function _tmc_account_credential_iam_add-binding {
+  _arguments \
+    '(*-g *--groups)'{\*-g,\*--groups}'[comma-separated list of groups to include in the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to bind the users/groups to]:' \
+    '(*-u *--users)'{\*-u,\*--users}'[comma-separated list of users to include in the role binding]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_credential_iam_get-policy {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_credential_iam_remove-binding {
+  _arguments \
+    '(-g --group)'{-g,--group}'[group to remove from the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to remove the user/group from]:' \
+    '(-u --user)'{-u,--user}'[user to remove from the role binding]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_credential_iam_test-permission {
+  _arguments \
+    '*--permission[permission to test]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_credential_iam_update-policy {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file to update the access policy for a credential]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update a credential]' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_credential_list {
+  _arguments \
+    '--all[list all the credentials]' \
+    '--capability[filter credentials by a capability]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '--provider[filter credentials by a provider]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_credential_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_account_credential_template {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_account_credential_template_get
+    ;;
+  list)
+    _tmc_account_credential_template_list
+    ;;
+  esac
+}
+
+function _tmc_account_credential_template_get {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_credential_template_list {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_credential_update {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file from which to update the credential]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the credential]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_account_management-cluster {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "provisioner:provisioner short description"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  provisioner)
+    _tmc_account_management-cluster_provisioner
+    ;;
+  esac
+}
+
+
+function _tmc_account_management-cluster_provisioner {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "credential:The credential object defines a cloud provider account connection and the accompanying metadata to identify its capabilities."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  credential)
+    _tmc_account_management-cluster_provisioner_credential
+    ;;
+  esac
+}
+
+
+function _tmc_account_management-cluster_provisioner_credential {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a credential object"
+      "delete:Delete a credential"
+      "get:Retrieve a credential object"
+      "iam:Access policy for a credential"
+      "list:Return a list of credentials"
+      "schema:Schema for the credential type"
+      "template:Templates for credential"
+      "update:Update (overwrite) a credential"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_account_management-cluster_provisioner_credential_create
+    ;;
+  delete)
+    _tmc_account_management-cluster_provisioner_credential_delete
+    ;;
+  get)
+    _tmc_account_management-cluster_provisioner_credential_get
+    ;;
+  iam)
+    _tmc_account_management-cluster_provisioner_credential_iam
+    ;;
+  list)
+    _tmc_account_management-cluster_provisioner_credential_list
+    ;;
+  schema)
+    _tmc_account_management-cluster_provisioner_credential_schema
+    ;;
+  template)
+    _tmc_account_management-cluster_provisioner_credential_template
+    ;;
+  update)
+    _tmc_account_management-cluster_provisioner_credential_update
+    ;;
+  esac
+}
+
+function _tmc_account_management-cluster_provisioner_credential_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a credential]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the credential]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_management-cluster_provisioner_credential_delete {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_management-cluster_provisioner_credential_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_account_management-cluster_provisioner_credential_iam {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "add-binding:Add a role binding in the access policy for a credential"
+      "get-policy:Retrieve the access policy for a credential"
+      "remove-binding:Remove a role binding from the access policy for a credential"
+      "test-permission:Test permissions for a credential"
+      "update-policy:Update (overwrite) policy for a credential"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  add-binding)
+    _tmc_account_management-cluster_provisioner_credential_iam_add-binding
+    ;;
+  get-policy)
+    _tmc_account_management-cluster_provisioner_credential_iam_get-policy
+    ;;
+  remove-binding)
+    _tmc_account_management-cluster_provisioner_credential_iam_remove-binding
+    ;;
+  test-permission)
+    _tmc_account_management-cluster_provisioner_credential_iam_test-permission
+    ;;
+  update-policy)
+    _tmc_account_management-cluster_provisioner_credential_iam_update-policy
+    ;;
+  esac
+}
+
+function _tmc_account_management-cluster_provisioner_credential_iam_add-binding {
+  _arguments \
+    '(*-g *--groups)'{\*-g,\*--groups}'[comma-separated list of groups to include in the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to bind the users/groups to]:' \
+    '(*-u *--users)'{\*-u,\*--users}'[comma-separated list of users to include in the role binding]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_management-cluster_provisioner_credential_iam_get-policy {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_management-cluster_provisioner_credential_iam_remove-binding {
+  _arguments \
+    '(-g --group)'{-g,--group}'[group to remove from the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to remove the user/group from]:' \
+    '(-u --user)'{-u,--user}'[user to remove from the role binding]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_management-cluster_provisioner_credential_iam_test-permission {
+  _arguments \
+    '*--permission[permission to test]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_management-cluster_provisioner_credential_iam_update-policy {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file to update the access policy for a credential]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update a credential]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_management-cluster_provisioner_credential_list {
+  _arguments \
+    '--all[list all the credentials]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '--provider[filter credentials by a provider]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_management-cluster_provisioner_credential_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_account_management-cluster_provisioner_credential_template {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_account_management-cluster_provisioner_credential_template_get
+    ;;
+  list)
+    _tmc_account_management-cluster_provisioner_credential_template_list
+    ;;
+  esac
+}
+
+function _tmc_account_management-cluster_provisioner_credential_template_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_management-cluster_provisioner_credential_template_list {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_account_management-cluster_provisioner_credential_update {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file from which to update the credential]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the credential]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_audit {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create an audit object"
+      "delete:Delete an audit"
+      "get:Retrieve an audit object"
+      "get-user-info:get the user information given the user id"
+      "list:Return a list of audits"
+      "schema:Schema for the audit type"
+      "template:Templates for audit"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_audit_create
+    ;;
+  delete)
+    _tmc_audit_delete
+    ;;
+  get)
+    _tmc_audit_get
+    ;;
+  get-user-info)
+    _tmc_audit_get-user-info
+    ;;
+  list)
+    _tmc_audit_list
+    ;;
+  schema)
+    _tmc_audit_schema
+    ;;
+  template)
+    _tmc_audit_template
+    ;;
+  esac
+}
+
+function _tmc_audit_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create an audit]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the audit]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_audit_delete {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_audit_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_audit_get-user-info {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_audit_list {
+  _arguments \
+    '--all[list all the audits]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_audit_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_audit_template {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_audit_template_get
+    ;;
+  list)
+    _tmc_audit_template_list
+    ;;
+  esac
+}
+
+function _tmc_audit_template_get {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_audit_template_list {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "attach:Attach an existing cluster"
+      "auth:Cluster-specific authentication and authorization."
+      "create:Create a cluster object"
+      "dataprotection:Backup, restore, or migrate cluster data."
+      "delete:Delete a cluster"
+      "extension:Cluster addons for the platform."
+      "get:Retrieve a cluster object"
+      "iam:Access policy for a cluster"
+      "inspection:Run an inspection on a cluster"
+      "list:Return a list of clusters"
+      "logs:Archive the logs of Tanzu Mission Control components present in the cluster"
+      "managed-resources:tmc managed kubernetes resources"
+      "namespace:A managed Kubernetes namespace."
+      "nodepool:A group of Kubernetes clusters."
+      "object:Kubernetes objects that exists on a cluster."
+      "options:Options for the cluster resource"
+      "reattach:Reattach an existing cluster"
+      "schema:Schema for the cluster type"
+      "template:Templates for cluster"
+      "update:Update (overwrite) a cluster"
+      "upgrade:Upgrade a provisioned Tanzu Kubernetes cluster"
+      "validate:Prints report of tmc components present in the cluster"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  attach)
+    _tmc_cluster_attach
+    ;;
+  auth)
+    _tmc_cluster_auth
+    ;;
+  create)
+    _tmc_cluster_create
+    ;;
+  dataprotection)
+    _tmc_cluster_dataprotection
+    ;;
+  delete)
+    _tmc_cluster_delete
+    ;;
+  extension)
+    _tmc_cluster_extension
+    ;;
+  get)
+    _tmc_cluster_get
+    ;;
+  iam)
+    _tmc_cluster_iam
+    ;;
+  inspection)
+    _tmc_cluster_inspection
+    ;;
+  list)
+    _tmc_cluster_list
+    ;;
+  logs)
+    _tmc_cluster_logs
+    ;;
+  managed-resources)
+    _tmc_cluster_managed-resources
+    ;;
+  namespace)
+    _tmc_cluster_namespace
+    ;;
+  nodepool)
+    _tmc_cluster_nodepool
+    ;;
+  object)
+    _tmc_cluster_object
+    ;;
+  options)
+    _tmc_cluster_options
+    ;;
+  reattach)
+    _tmc_cluster_reattach
+    ;;
+  schema)
+    _tmc_cluster_schema
+    ;;
+  template)
+    _tmc_cluster_template
+    ;;
+  update)
+    _tmc_cluster_update
+    ;;
+  upgrade)
+    _tmc_cluster_upgrade
+    ;;
+  validate)
+    _tmc_cluster_validate
+    ;;
+  esac
+}
+
+function _tmc_cluster_attach {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to attach the cluster]:' \
+    '--force[clean up the Tanzu Mission Control resources of a partially detached/attached cluster so that the cluster can be attached again]' \
+    '(-s --http-proxy-password)'{-s,--http-proxy-password}'[http proxy password for basic authentication. Note: Use this with caution as the password is stored in your command history.]:' \
+    '(-x --http-proxy-url)'{-x,--http-proxy-url}'[http proxy url. Currently only basic authentication is supported.]:' \
+    '(-u --http-proxy-username)'{-u,--http-proxy-username}'[http proxy username for basic authentication]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to attach the cluster]' \
+    '(-k --kubeconfig)'{-k,--kubeconfig}'[the kubeconfig file of the actual cluster to use for applying the Tanzu Mission Control resource manifest]:' \
+    '(-o --output)'{-o,--output}'[output file to write the Tanzu Mission Control resource manifest to for attaching a cluster]:' \
+    '--skip-verify[skip the post-flight checks to confirm that the cluster attach was successful]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_auth {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "admin-kubeconfig:Service fetches admin kubeconfig for provisioned clusters."
+      "kubeconfig:Service fetches kubeconfigs for attached clusters."
+      "serverconfig:Server authentication configuration for clusters."
+      "userconfig:User authentication configuration for clusters."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  admin-kubeconfig)
+    _tmc_cluster_auth_admin-kubeconfig
+    ;;
+  kubeconfig)
+    _tmc_cluster_auth_kubeconfig
+    ;;
+  serverconfig)
+    _tmc_cluster_auth_serverconfig
+    ;;
+  userconfig)
+    _tmc_cluster_auth_userconfig
+    ;;
+  esac
+}
+
+
+function _tmc_cluster_auth_admin-kubeconfig {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Get admin kubeconfig."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_auth_admin-kubeconfig_get
+    ;;
+  esac
+}
+
+function _tmc_cluster_auth_admin-kubeconfig_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_auth_kubeconfig {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Get cluster kubeconfig."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_auth_kubeconfig_get
+    ;;
+  esac
+}
+
+function _tmc_cluster_auth_kubeconfig_get {
+  _arguments \
+    '(-n --namespace)'{-n,--namespace}'[get kubeconfig for specific namespace]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_auth_serverconfig {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a serverconfig object"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_auth_serverconfig_get
+    ;;
+  esac
+}
+
+function _tmc_cluster_auth_serverconfig_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_auth_userconfig {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve an userconfig object"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_auth_userconfig_get
+    ;;
+  esac
+}
+
+function _tmc_cluster_auth_userconfig_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a cluster]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the cluster]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-w --wizard)'{-w,--wizard}'[create cluster using the wizard]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_dataprotection {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "backup:The Kubernetes cluster state related to backup (API objects and associated volume state)."
+      "backuplocation:A target location for backups."
+      "create:Create a dataprotection object"
+      "delete:Delete a dataprotection"
+      "get:Retrieve a dataprotection object"
+      "list:Return a list of dataprotections"
+      "restore:The application of resources from a backup to a target Kubernetes cluster."
+      "schedule:A pre-scheduled or periodic Backup that should be run."
+      "schema:Schema for the dataprotection type"
+      "snapshotlocation:The snapshot location assigned to a cluster."
+      "template:Templates for dataprotection"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  backup)
+    _tmc_cluster_dataprotection_backup
+    ;;
+  backuplocation)
+    _tmc_cluster_dataprotection_backuplocation
+    ;;
+  create)
+    _tmc_cluster_dataprotection_create
+    ;;
+  delete)
+    _tmc_cluster_dataprotection_delete
+    ;;
+  get)
+    _tmc_cluster_dataprotection_get
+    ;;
+  list)
+    _tmc_cluster_dataprotection_list
+    ;;
+  restore)
+    _tmc_cluster_dataprotection_restore
+    ;;
+  schedule)
+    _tmc_cluster_dataprotection_schedule
+    ;;
+  schema)
+    _tmc_cluster_dataprotection_schema
+    ;;
+  snapshotlocation)
+    _tmc_cluster_dataprotection_snapshotlocation
+    ;;
+  template)
+    _tmc_cluster_dataprotection_template
+    ;;
+  esac
+}
+
+
+function _tmc_cluster_dataprotection_backup {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a backup object"
+      "delete:Delete a backup"
+      "get:Retrieve a backup object"
+      "list:Return a list of backups"
+      "schema:Schema for the backup type"
+      "template:Templates for backup"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_cluster_dataprotection_backup_create
+    ;;
+  delete)
+    _tmc_cluster_dataprotection_backup_delete
+    ;;
+  get)
+    _tmc_cluster_dataprotection_backup_get
+    ;;
+  list)
+    _tmc_cluster_dataprotection_backup_list
+    ;;
+  schema)
+    _tmc_cluster_dataprotection_backup_schema
+    ;;
+  template)
+    _tmc_cluster_dataprotection_backup_template
+    ;;
+  esac
+}
+
+function _tmc_cluster_dataprotection_backup_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a backup]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the backup]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_backup_delete {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_backup_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_backup_list {
+  _arguments \
+    '--all[list all the backups]' \
+    '--cluster-name[scope search to the specified cluster_name]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_backup_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_dataprotection_backup_template {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_dataprotection_backup_template_get
+    ;;
+  list)
+    _tmc_cluster_dataprotection_backup_template_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_dataprotection_backup_template_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_backup_template_list {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_dataprotection_backuplocation {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a backuplocation object"
+      "list:Return a list of backuplocations"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_dataprotection_backuplocation_get
+    ;;
+  list)
+    _tmc_cluster_dataprotection_backuplocation_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_dataprotection_backuplocation_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_backuplocation_list {
+  _arguments \
+    '--all[list all the backuplocations]' \
+    '--cluster-name[scope search to the specified cluster_name]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a dataprotection]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the dataprotection]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_delete {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '--delete-backups[Delete all backup files associated with this cluster from the backup storage location]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_list {
+  _arguments \
+    '--all[list all the dataprotections]' \
+    '--cluster-name[scope search to the specified cluster_name]:' \
+    '--max-size[number of records to return]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_dataprotection_restore {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a restore object"
+      "delete:Delete a restore"
+      "get:Retrieve a restore object"
+      "list:Return a list of restores"
+      "schema:Schema for the restore type"
+      "template:Templates for restore"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_cluster_dataprotection_restore_create
+    ;;
+  delete)
+    _tmc_cluster_dataprotection_restore_delete
+    ;;
+  get)
+    _tmc_cluster_dataprotection_restore_get
+    ;;
+  list)
+    _tmc_cluster_dataprotection_restore_list
+    ;;
+  schema)
+    _tmc_cluster_dataprotection_restore_schema
+    ;;
+  template)
+    _tmc_cluster_dataprotection_restore_template
+    ;;
+  esac
+}
+
+function _tmc_cluster_dataprotection_restore_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a restore]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the restore]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_restore_delete {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_restore_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_restore_list {
+  _arguments \
+    '--all[list all the restores]' \
+    '--cluster-name[scope search to the specified cluster_name]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_restore_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_dataprotection_restore_template {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_dataprotection_restore_template_get
+    ;;
+  list)
+    _tmc_cluster_dataprotection_restore_template_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_dataprotection_restore_template_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_restore_template_list {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_dataprotection_schedule {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a schedule object"
+      "delete:Delete a schedule"
+      "get:Retrieve a schedule object"
+      "list:Return a list of schedules"
+      "schema:Schema for the schedule type"
+      "template:Templates for schedule"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_cluster_dataprotection_schedule_create
+    ;;
+  delete)
+    _tmc_cluster_dataprotection_schedule_delete
+    ;;
+  get)
+    _tmc_cluster_dataprotection_schedule_get
+    ;;
+  list)
+    _tmc_cluster_dataprotection_schedule_list
+    ;;
+  schema)
+    _tmc_cluster_dataprotection_schedule_schema
+    ;;
+  template)
+    _tmc_cluster_dataprotection_schedule_template
+    ;;
+  esac
+}
+
+function _tmc_cluster_dataprotection_schedule_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a schedule]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the schedule]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_schedule_delete {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_schedule_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_schedule_list {
+  _arguments \
+    '--all[list all the schedules]' \
+    '--cluster-name[scope search to the specified cluster_name]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_schedule_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_dataprotection_schedule_template {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_dataprotection_schedule_template_get
+    ;;
+  list)
+    _tmc_cluster_dataprotection_schedule_template_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_dataprotection_schedule_template_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_schedule_template_list {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_dataprotection_snapshotlocation {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a snapshotlocation object"
+      "list:Return a list of snapshotlocations"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_dataprotection_snapshotlocation_get
+    ;;
+  list)
+    _tmc_cluster_dataprotection_snapshotlocation_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_dataprotection_snapshotlocation_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_snapshotlocation_list {
+  _arguments \
+    '--all[list all the snapshotlocations]' \
+    '--cluster-name[scope search to the specified cluster_name]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_dataprotection_template {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_dataprotection_template_get
+    ;;
+  list)
+    _tmc_cluster_dataprotection_template_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_dataprotection_template_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_dataprotection_template_list {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_delete {
+  _arguments \
+    '(-f --force)'{-f,--force}'[force delete a cluster]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_extension {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve an extension object"
+      "list:Return a list of extensions"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_extension_get
+    ;;
+  list)
+    _tmc_cluster_extension_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_extension_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_extension_list {
+  _arguments \
+    '--all[list all the extensions]' \
+    '--cluster-name[scope search to the specified cluster_name]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_iam {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "add-binding:Add a role binding in the access policy for a cluster"
+      "get-policy:Retrieve the access policy for a cluster"
+      "remove-binding:Remove a role binding from the access policy for a cluster"
+      "test-permission:Test permissions for a cluster"
+      "update-policy:Update (overwrite) policy for a cluster"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  add-binding)
+    _tmc_cluster_iam_add-binding
+    ;;
+  get-policy)
+    _tmc_cluster_iam_get-policy
+    ;;
+  remove-binding)
+    _tmc_cluster_iam_remove-binding
+    ;;
+  test-permission)
+    _tmc_cluster_iam_test-permission
+    ;;
+  update-policy)
+    _tmc_cluster_iam_update-policy
+    ;;
+  esac
+}
+
+function _tmc_cluster_iam_add-binding {
+  _arguments \
+    '(*-g *--groups)'{\*-g,\*--groups}'[comma-separated list of groups to include in the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to bind the users/groups to]:' \
+    '(*-u *--users)'{\*-u,\*--users}'[comma-separated list of users to include in the role binding]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_iam_get-policy {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_iam_remove-binding {
+  _arguments \
+    '(-g --group)'{-g,--group}'[group to remove from the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to remove the user/group from]:' \
+    '(-u --user)'{-u,--user}'[user to remove from the role binding]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_iam_test-permission {
+  _arguments \
+    '*--permission[permission to test]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_iam_update-policy {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file to update the access policy for a cluster]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update a cluster]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_inspection {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "scan:Run an on demand inspection scan on a cluster"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  scan)
+    _tmc_cluster_inspection_scan
+    ;;
+  esac
+}
+
+
+function _tmc_cluster_inspection_scan {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a scan object"
+      "delete:Delete a scan"
+      "get:Retrieve a scan object"
+      "list:Return a list of scans"
+      "schema:Schema for the scan type"
+      "template:Templates for scan"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_cluster_inspection_scan_create
+    ;;
+  delete)
+    _tmc_cluster_inspection_scan_delete
+    ;;
+  get)
+    _tmc_cluster_inspection_scan_get
+    ;;
+  list)
+    _tmc_cluster_inspection_scan_list
+    ;;
+  schema)
+    _tmc_cluster_inspection_scan_schema
+    ;;
+  template)
+    _tmc_cluster_inspection_scan_template
+    ;;
+  esac
+}
+
+function _tmc_cluster_inspection_scan_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a scan]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the scan]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_inspection_scan_delete {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_inspection_scan_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_inspection_scan_list {
+  _arguments \
+    '--all[list all the scans]' \
+    '--cluster-name[scope search to the specified cluster_name]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_inspection_scan_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_inspection_scan_template {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_inspection_scan_template_get
+    ;;
+  list)
+    _tmc_cluster_inspection_scan_template_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_inspection_scan_template_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_inspection_scan_template_list {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_list {
+  _arguments \
+    '--all[list all the clusters]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_logs {
+  _arguments \
+    '(-k --kubeconfig)'{-k,--kubeconfig}'[the kubeconfig file of the cluster managed by Tanzu Mission Control]:' \
+    '(-o --output)'{-o,--output}'[the output directory to save logs (default temp directory)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_managed-resources {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "list:lists all the tmc managed resources"
+      "retain:retain tmc managed resources"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  list)
+    _tmc_cluster_managed-resources_list
+    ;;
+  retain)
+    _tmc_cluster_managed-resources_retain
+    ;;
+  esac
+}
+
+function _tmc_cluster_managed-resources_list {
+  _arguments \
+    '(-k --kubeconfig)'{-k,--kubeconfig}'[config file of cluster monitored via TMC]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_managed-resources_retain {
+  _arguments \
+    '(-k --kubeconfig)'{-k,--kubeconfig}'[config file of cluster monitored via TMC]:' \
+    '(-n --namespace)'{-n,--namespace}'[namespace of the resource to be retained]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_namespace {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "attach:Attach one or more unmanaged namespaces to a workspace"
+      "create:Create a namespace object"
+      "delete:Delete a namespace"
+      "get:Retrieve a namespace object"
+      "iam:Access policy for a namespace"
+      "list:Return a list of namespaces"
+      "schema:Schema for the namespace type"
+      "template:Templates for namespace"
+      "update:Update (overwrite) a namespace"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  attach)
+    _tmc_cluster_namespace_attach
+    ;;
+  create)
+    _tmc_cluster_namespace_create
+    ;;
+  delete)
+    _tmc_cluster_namespace_delete
+    ;;
+  get)
+    _tmc_cluster_namespace_get
+    ;;
+  iam)
+    _tmc_cluster_namespace_iam
+    ;;
+  list)
+    _tmc_cluster_namespace_list
+    ;;
+  schema)
+    _tmc_cluster_namespace_schema
+    ;;
+  template)
+    _tmc_cluster_namespace_template
+    ;;
+  update)
+    _tmc_cluster_namespace_update
+    ;;
+  esac
+}
+
+function _tmc_cluster_namespace_attach {
+  _arguments \
+    '--dry-run[only create data model, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file to attach namespace]:' \
+    '(-i --interactive)'{-i,--interactive}'[attach namespace in interactive mode using your default editor]' \
+    '(-w --wizard)'{-w,--wizard}'[attach namespace using the wizard]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_namespace_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a namespace]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the namespace]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-w --wizard)'{-w,--wizard}'[create namespace using the wizard]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_namespace_delete {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_namespace_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_namespace_iam {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "add-binding:Add a role binding in the access policy for a namespace"
+      "get-policy:Retrieve the access policy for a namespace"
+      "remove-binding:Remove a role binding from the access policy for a namespace"
+      "test-permission:Test permissions for a namespace"
+      "update-policy:Update (overwrite) policy for a namespace"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  add-binding)
+    _tmc_cluster_namespace_iam_add-binding
+    ;;
+  get-policy)
+    _tmc_cluster_namespace_iam_get-policy
+    ;;
+  remove-binding)
+    _tmc_cluster_namespace_iam_remove-binding
+    ;;
+  test-permission)
+    _tmc_cluster_namespace_iam_test-permission
+    ;;
+  update-policy)
+    _tmc_cluster_namespace_iam_update-policy
+    ;;
+  esac
+}
+
+function _tmc_cluster_namespace_iam_add-binding {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(*-g *--groups)'{\*-g,\*--groups}'[comma-separated list of groups to include in the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to bind the users/groups to]:' \
+    '(*-u *--users)'{\*-u,\*--users}'[comma-separated list of users to include in the role binding]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_namespace_iam_get-policy {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_namespace_iam_remove-binding {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-g --group)'{-g,--group}'[group to remove from the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to remove the user/group from]:' \
+    '(-u --user)'{-u,--user}'[user to remove from the role binding]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_namespace_iam_test-permission {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '*--permission[permission to test]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_namespace_iam_update-policy {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-f --file)'{-f,--file}'[resource file to update the access policy for a namespace]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update a namespace]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_namespace_list {
+  _arguments \
+    '--all[list all the namespaces]' \
+    '--cluster-name[scope search to the specified cluster_name]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '--workspace-name[filter by workspace name]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_namespace_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_namespace_template {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_namespace_template_get
+    ;;
+  list)
+    _tmc_cluster_namespace_template_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_namespace_template_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_namespace_template_list {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_namespace_update {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-f --file)'{-f,--file}'[resource file from which to update the namespace]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the namespace]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_nodepool {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a nodepool object"
+      "delete:Delete a nodepool"
+      "get:Retrieve a nodepool object"
+      "iam:Access policy for a nodepool"
+      "list:Return a list of nodepools"
+      "schema:Schema for the nodepool type"
+      "template:Templates for nodepool"
+      "update:Update (overwrite) a nodepool"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_cluster_nodepool_create
+    ;;
+  delete)
+    _tmc_cluster_nodepool_delete
+    ;;
+  get)
+    _tmc_cluster_nodepool_get
+    ;;
+  iam)
+    _tmc_cluster_nodepool_iam
+    ;;
+  list)
+    _tmc_cluster_nodepool_list
+    ;;
+  schema)
+    _tmc_cluster_nodepool_schema
+    ;;
+  template)
+    _tmc_cluster_nodepool_template
+    ;;
+  update)
+    _tmc_cluster_nodepool_update
+    ;;
+  esac
+}
+
+function _tmc_cluster_nodepool_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a nodepool]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the nodepool]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-w --wizard)'{-w,--wizard}'[create nodepool using the wizard]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_nodepool_delete {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_nodepool_get {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_nodepool_iam {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "add-binding:Add a role binding in the access policy for a nodepool"
+      "get-policy:Retrieve the access policy for a nodepool"
+      "remove-binding:Remove a role binding from the access policy for a nodepool"
+      "test-permission:Test permissions for a nodepool"
+      "update-policy:Update (overwrite) policy for a nodepool"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  add-binding)
+    _tmc_cluster_nodepool_iam_add-binding
+    ;;
+  get-policy)
+    _tmc_cluster_nodepool_iam_get-policy
+    ;;
+  remove-binding)
+    _tmc_cluster_nodepool_iam_remove-binding
+    ;;
+  test-permission)
+    _tmc_cluster_nodepool_iam_test-permission
+    ;;
+  update-policy)
+    _tmc_cluster_nodepool_iam_update-policy
+    ;;
+  esac
+}
+
+function _tmc_cluster_nodepool_iam_add-binding {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(*-g *--groups)'{\*-g,\*--groups}'[comma-separated list of groups to include in the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to bind the users/groups to]:' \
+    '(*-u *--users)'{\*-u,\*--users}'[comma-separated list of users to include in the role binding]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_nodepool_iam_get-policy {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_nodepool_iam_remove-binding {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-g --group)'{-g,--group}'[group to remove from the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to remove the user/group from]:' \
+    '(-u --user)'{-u,--user}'[user to remove from the role binding]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_nodepool_iam_test-permission {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '*--permission[permission to test]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_nodepool_iam_update-policy {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-f --file)'{-f,--file}'[resource file to update the access policy for a nodepool]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update a nodepool]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_nodepool_list {
+  _arguments \
+    '--all[list all the nodepools]' \
+    '--cluster-name[scope search to the specified cluster_name]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_nodepool_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_nodepool_template {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_nodepool_template_get
+    ;;
+  list)
+    _tmc_cluster_nodepool_template_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_nodepool_template_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_nodepool_template_list {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_nodepool_update {
+  _arguments \
+    '--cluster-name[name of the cluster]:' \
+    '(-f --file)'{-f,--file}'[resource file from which to update the nodepool]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the nodepool]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_object {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "list:Return a list of objects"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  list)
+    _tmc_cluster_object_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_object_list {
+  _arguments \
+    '--all[list all the objects]' \
+    '--cluster-name[scope search to the specified cluster_name]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-q --query)'{-q,--query}'[tql to query the stores]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_options {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "list:List cluster options"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  list)
+    _tmc_cluster_options_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_options_list {
+  _arguments \
+    '--credential-name[name of the credential (required for aws options)]:' \
+    '(-o --output)'{-o,--output}'[Output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_reattach {
+  _arguments \
+    '(-s --http-proxy-password)'{-s,--http-proxy-password}'[HTTP Proxy password for basic authentication. Note: Use this with caution as the password is stored in your command history.]:' \
+    '(-x --http-proxy-url)'{-x,--http-proxy-url}'[HTTP Proxy URL. Currently only basic authentication is supported.]:' \
+    '(-u --http-proxy-username)'{-u,--http-proxy-username}'[HTTP Proxy username for basic authentication]:' \
+    '(-k --kubeconfig)'{-k,--kubeconfig}'[The kubeconfig file of the actual cluster to use for applying the Tanzu Mission Control resource manifest]:' \
+    '(-n --name)'{-n,--name}'[Name of cluster you want to reattach. (required)]:' \
+    '--skip-verify[Skip the post-flight checks to confirm that the cluster reattach was successful]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_cluster_template {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_cluster_template_get
+    ;;
+  list)
+    _tmc_cluster_template_list
+    ;;
+  esac
+}
+
+function _tmc_cluster_template_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_template_list {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_update {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file from which to update the cluster]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the cluster]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_upgrade {
+  _arguments \
+    '--include-all-families[include versions from different operating system families.]' \
+    '--latest[automatically select the latest available version eligible for upgrade.]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_cluster_validate {
+  _arguments \
+    '(-k --kubeconfig)'{-k,--kubeconfig}'[config file of cluster monitored via TMC]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[management cluster name for the cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[provisioner name for the cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_clustergroup {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a clustergroup object"
+      "delete:Delete a clustergroup"
+      "get:Retrieve a clustergroup object"
+      "iam:Access policy for a clustergroup"
+      "list:Return a list of clustergroups"
+      "schema:Schema for the clustergroup type"
+      "template:Templates for clustergroup"
+      "update:Update (overwrite) a clustergroup"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_clustergroup_create
+    ;;
+  delete)
+    _tmc_clustergroup_delete
+    ;;
+  get)
+    _tmc_clustergroup_get
+    ;;
+  iam)
+    _tmc_clustergroup_iam
+    ;;
+  list)
+    _tmc_clustergroup_list
+    ;;
+  schema)
+    _tmc_clustergroup_schema
+    ;;
+  template)
+    _tmc_clustergroup_template
+    ;;
+  update)
+    _tmc_clustergroup_update
+    ;;
+  esac
+}
+
+function _tmc_clustergroup_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a clustergroup]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the clustergroup]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_clustergroup_delete {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_clustergroup_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_clustergroup_iam {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "add-binding:Add a role binding in the access policy for a clustergroup"
+      "get-policy:Retrieve the access policy for a clustergroup"
+      "remove-binding:Remove a role binding from the access policy for a clustergroup"
+      "test-permission:Test permissions for a clustergroup"
+      "update-policy:Update (overwrite) policy for a clustergroup"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  add-binding)
+    _tmc_clustergroup_iam_add-binding
+    ;;
+  get-policy)
+    _tmc_clustergroup_iam_get-policy
+    ;;
+  remove-binding)
+    _tmc_clustergroup_iam_remove-binding
+    ;;
+  test-permission)
+    _tmc_clustergroup_iam_test-permission
+    ;;
+  update-policy)
+    _tmc_clustergroup_iam_update-policy
+    ;;
+  esac
+}
+
+function _tmc_clustergroup_iam_add-binding {
+  _arguments \
+    '(*-g *--groups)'{\*-g,\*--groups}'[comma-separated list of groups to include in the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to bind the users/groups to]:' \
+    '(*-u *--users)'{\*-u,\*--users}'[comma-separated list of users to include in the role binding]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_clustergroup_iam_get-policy {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_clustergroup_iam_remove-binding {
+  _arguments \
+    '(-g --group)'{-g,--group}'[group to remove from the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to remove the user/group from]:' \
+    '(-u --user)'{-u,--user}'[user to remove from the role binding]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_clustergroup_iam_test-permission {
+  _arguments \
+    '*--permission[permission to test]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_clustergroup_iam_update-policy {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file to update the access policy for a clustergroup]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update a clustergroup]' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_clustergroup_list {
+  _arguments \
+    '--all[list all the clustergroups]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_clustergroup_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_clustergroup_template {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_clustergroup_template_get
+    ;;
+  list)
+    _tmc_clustergroup_template_list
+    ;;
+  esac
+}
+
+function _tmc_clustergroup_template_get {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_clustergroup_template_list {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_clustergroup_update {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file from which to update the clustergroup]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the clustergroup]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_completion {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "bash:Generate bash completion script for tmc commands"
+      "zsh:Generate zsh completion script for tmc commands"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  bash)
+    _tmc_completion_bash
+    ;;
+  zsh)
+    _tmc_completion_zsh
+    ;;
+  esac
+}
+
+function _tmc_completion_bash {
+  _arguments
+}
+
+function _tmc_completion_zsh {
+  _arguments \
+    '(-h --help)'{-h,--help}'[help for zsh]'
+}
+
+function _tmc_configure {
+  _arguments \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode to configure environment defaults]' \
+    '(-l --log-level)'{-l,--log-level}'[set log level for the current context (default '\''info'\'')]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[set management cluster name for the current context]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[set provisioner name for the current context]:'
+}
+
+
+function _tmc_dataprotection {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "provider:A data protection provider."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  provider)
+    _tmc_dataprotection_provider
+    ;;
+  esac
+}
+
+
+function _tmc_dataprotection_provider {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "backuplocation:A target location for backups."
+      "get:Retrieve a provider object"
+      "list:Return a list of providers"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  backuplocation)
+    _tmc_dataprotection_provider_backuplocation
+    ;;
+  get)
+    _tmc_dataprotection_provider_get
+    ;;
+  list)
+    _tmc_dataprotection_provider_list
+    ;;
+  esac
+}
+
+
+function _tmc_dataprotection_provider_backuplocation {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a backuplocation object"
+      "delete:Delete a backuplocation"
+      "get:Retrieve a backuplocation object"
+      "list:Return a list of backuplocations"
+      "schema:Schema for the backuplocation type"
+      "template:Templates for backuplocation"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_dataprotection_provider_backuplocation_create
+    ;;
+  delete)
+    _tmc_dataprotection_provider_backuplocation_delete
+    ;;
+  get)
+    _tmc_dataprotection_provider_backuplocation_get
+    ;;
+  list)
+    _tmc_dataprotection_provider_backuplocation_list
+    ;;
+  schema)
+    _tmc_dataprotection_provider_backuplocation_schema
+    ;;
+  template)
+    _tmc_dataprotection_provider_backuplocation_template
+    ;;
+  esac
+}
+
+function _tmc_dataprotection_provider_backuplocation_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a backuplocation]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the backuplocation]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_dataprotection_provider_backuplocation_delete {
+  _arguments \
+    '--provider-name[name of the provider]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_dataprotection_provider_backuplocation_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '--provider-name[name of the provider]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_dataprotection_provider_backuplocation_list {
+  _arguments \
+    '--all[list all the backuplocations]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '--provider-name[scope search to the specified provider_name]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_dataprotection_provider_backuplocation_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_dataprotection_provider_backuplocation_template {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_dataprotection_provider_backuplocation_template_get
+    ;;
+  list)
+    _tmc_dataprotection_provider_backuplocation_template_list
+    ;;
+  esac
+}
+
+function _tmc_dataprotection_provider_backuplocation_template_get {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_dataprotection_provider_backuplocation_template_list {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_dataprotection_provider_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_dataprotection_provider_list {
+  _arguments \
+    '--all[list all the providers]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_help {
+  _arguments
+}
+
+
+function _tmc_iam {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "currentuser:Current user management."
+      "effective:Effective iam policy applied on a resource."
+      "permission:Tanzu IAM permissions."
+      "role:Manage permissions on resources."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  currentuser)
+    _tmc_iam_currentuser
+    ;;
+  effective)
+    _tmc_iam_effective
+    ;;
+  permission)
+    _tmc_iam_permission
+    ;;
+  role)
+    _tmc_iam_role
+    ;;
+  esac
+}
+
+
+function _tmc_iam_currentuser {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "feature:The Feature resource."
+      "preference:Preference represents user information specific to the current user."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  feature)
+    _tmc_iam_currentuser_feature
+    ;;
+  preference)
+    _tmc_iam_currentuser_preference
+    ;;
+  esac
+}
+
+
+function _tmc_iam_currentuser_feature {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a feature object"
+      "list:Return a list of features"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_iam_currentuser_feature_get
+    ;;
+  list)
+    _tmc_iam_currentuser_feature_list
+    ;;
+  esac
+}
+
+function _tmc_iam_currentuser_feature_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_currentuser_feature_list {
+  _arguments \
+    '--all[list all the features]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_iam_currentuser_preference {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a preference object"
+      "delete:Delete a preference"
+      "get:Retrieve a preference object"
+      "schema:Schema for the preference type"
+      "template:Templates for preference"
+      "update:Update (overwrite) a preference"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_iam_currentuser_preference_create
+    ;;
+  delete)
+    _tmc_iam_currentuser_preference_delete
+    ;;
+  get)
+    _tmc_iam_currentuser_preference_get
+    ;;
+  schema)
+    _tmc_iam_currentuser_preference_schema
+    ;;
+  template)
+    _tmc_iam_currentuser_preference_template
+    ;;
+  update)
+    _tmc_iam_currentuser_preference_update
+    ;;
+  esac
+}
+
+function _tmc_iam_currentuser_preference_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a preference]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the preference]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_currentuser_preference_delete {
+  _arguments \
+    '--user-id[name of the userid]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_currentuser_preference_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '--user-id[name of the userid]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_currentuser_preference_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_iam_currentuser_preference_template {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_iam_currentuser_preference_template_get
+    ;;
+  list)
+    _tmc_iam_currentuser_preference_template_list
+    ;;
+  esac
+}
+
+function _tmc_iam_currentuser_preference_template_get {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_currentuser_preference_template_list {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_currentuser_preference_update {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file from which to update the preference]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the preference]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '--user-id[name of the userid]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_iam_effective {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "list:Return a list of effective"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  list)
+    _tmc_iam_effective_list
+    ;;
+  esac
+}
+
+function _tmc_iam_effective_list {
+  _arguments \
+    '--all[list all the effective]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '--phase[filter by phase of the policy]:' \
+    '--target-resource-uid[filter by uid of target resource]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_iam_permission {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "list:Return a list of permissions"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  list)
+    _tmc_iam_permission_list
+    ;;
+  esac
+}
+
+function _tmc_iam_permission_list {
+  _arguments \
+    '--all[list all the TMC permissions]' \
+    '(-n --name)'{-n,--name}'[limits the response to this particular permission]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(*-r *--resources)'{\*-r,\*--resources}'[filter permissions which are valid for these resources]:'
+}
+
+
+function _tmc_iam_role {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a role object"
+      "delete:Delete a role"
+      "get:Retrieve a role object"
+      "list:Return a list of roles"
+      "schema:Schema for the role type"
+      "template:Templates for role"
+      "update:Update (overwrite) a role"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_iam_role_create
+    ;;
+  delete)
+    _tmc_iam_role_delete
+    ;;
+  get)
+    _tmc_iam_role_get
+    ;;
+  list)
+    _tmc_iam_role_list
+    ;;
+  schema)
+    _tmc_iam_role_schema
+    ;;
+  template)
+    _tmc_iam_role_template
+    ;;
+  update)
+    _tmc_iam_role_update
+    ;;
+  esac
+}
+
+function _tmc_iam_role_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a role]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the role]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_role_delete {
+  _arguments \
+    '(-f --force)'{-f,--force}'[force delete a role]' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_role_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_role_list {
+  _arguments \
+    '--all[list all the roles]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_role_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_iam_role_template {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_iam_role_template_get
+    ;;
+  list)
+    _tmc_iam_role_template_list
+    ;;
+  esac
+}
+
+function _tmc_iam_role_template_get {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_role_template_list {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_iam_role_update {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file from which to update the role]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the role]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_login {
+  local -a commands
+
+  _arguments -C \
+    '(-n --name)'{-n,--name}'[name for the login context]:' \
+    '(-c --no-configure)'{-c,--no-configure}'[just login, do not configure the environment]' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "switch:Switch login to another existing context"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  switch)
+    _tmc_login_switch
+    ;;
+  esac
+}
+
+function _tmc_login_switch {
+  _arguments \
+    '(-c --context-name)'{-c,--context-name}'[name of context to switch to, will prompt if not provided]:'
+}
+
+
+function _tmc_managementcluster {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a managementcluster object"
+      "delete:Delete a managementcluster"
+      "deregister:de-register a management cluster"
+      "get:Retrieve a managementcluster object"
+      "iam:Access policy for a managementcluster"
+      "list:Return a list of managementclusters"
+      "provisioner:Representation of a provisioner object in resource manager."
+      "register:register a management cluster"
+      "reregister:re-register a management cluster"
+      "schema:Schema for the managementcluster type"
+      "template:Templates for managementcluster"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_managementcluster_create
+    ;;
+  delete)
+    _tmc_managementcluster_delete
+    ;;
+  deregister)
+    _tmc_managementcluster_deregister
+    ;;
+  get)
+    _tmc_managementcluster_get
+    ;;
+  iam)
+    _tmc_managementcluster_iam
+    ;;
+  list)
+    _tmc_managementcluster_list
+    ;;
+  provisioner)
+    _tmc_managementcluster_provisioner
+    ;;
+  register)
+    _tmc_managementcluster_register
+    ;;
+  reregister)
+    _tmc_managementcluster_reregister
+    ;;
+  schema)
+    _tmc_managementcluster_schema
+    ;;
+  template)
+    _tmc_managementcluster_template
+    ;;
+  esac
+}
+
+function _tmc_managementcluster_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a managementcluster]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the managementcluster]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_delete {
+  _arguments \
+    '(-f --force)'{-f,--force}'[force delete a managementcluster]' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_deregister {
+  _arguments \
+    '(-f --force)'{-f,--force}'[force deregister a managementcluster]' \
+    '(-k --kubeconfig)'{-k,--kubeconfig}'[The kubeconfig file of the actual cluster to use for applying the Tanzu Mission Control resource manifest]:' \
+    '(-o --output)'{-o,--output}'[Output file to write the Tanzu Mission Control resource manifest to for attaching a cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_managementcluster_iam {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "add-binding:Add a role binding in the access policy for a managementcluster"
+      "get-policy:Retrieve the access policy for a managementcluster"
+      "remove-binding:Remove a role binding from the access policy for a managementcluster"
+      "test-permission:Test permissions for a managementcluster"
+      "update-policy:Update (overwrite) policy for a managementcluster"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  add-binding)
+    _tmc_managementcluster_iam_add-binding
+    ;;
+  get-policy)
+    _tmc_managementcluster_iam_get-policy
+    ;;
+  remove-binding)
+    _tmc_managementcluster_iam_remove-binding
+    ;;
+  test-permission)
+    _tmc_managementcluster_iam_test-permission
+    ;;
+  update-policy)
+    _tmc_managementcluster_iam_update-policy
+    ;;
+  esac
+}
+
+function _tmc_managementcluster_iam_add-binding {
+  _arguments \
+    '(*-g *--groups)'{\*-g,\*--groups}'[comma-separated list of groups to include in the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to bind the users/groups to]:' \
+    '(*-u *--users)'{\*-u,\*--users}'[comma-separated list of users to include in the role binding]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_iam_get-policy {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_iam_remove-binding {
+  _arguments \
+    '(-g --group)'{-g,--group}'[group to remove from the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to remove the user/group from]:' \
+    '(-u --user)'{-u,--user}'[user to remove from the role binding]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_iam_test-permission {
+  _arguments \
+    '*--permission[permission to test]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_iam_update-policy {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file to update the access policy for a managementcluster]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update a managementcluster]' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_list {
+  _arguments \
+    '--all[list all the managementclusters]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_managementcluster_provisioner {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a provisioner object"
+      "delete:Delete a provisioner"
+      "get:Retrieve a provisioner object"
+      "iam:Access policy for a provisioner"
+      "list:Return a list of provisioners"
+      "schema:Schema for the provisioner type"
+      "tanzukubernetescluster:Tanzu Kubernetes cluster is an object for managed and unmanaged clusters."
+      "template:Templates for provisioner"
+      "update:Update (overwrite) a provisioner"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_managementcluster_provisioner_create
+    ;;
+  delete)
+    _tmc_managementcluster_provisioner_delete
+    ;;
+  get)
+    _tmc_managementcluster_provisioner_get
+    ;;
+  iam)
+    _tmc_managementcluster_provisioner_iam
+    ;;
+  list)
+    _tmc_managementcluster_provisioner_list
+    ;;
+  schema)
+    _tmc_managementcluster_provisioner_schema
+    ;;
+  tanzukubernetescluster)
+    _tmc_managementcluster_provisioner_tanzukubernetescluster
+    ;;
+  template)
+    _tmc_managementcluster_provisioner_template
+    ;;
+  update)
+    _tmc_managementcluster_provisioner_update
+    ;;
+  esac
+}
+
+function _tmc_managementcluster_provisioner_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a provisioner]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the provisioner]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_delete {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_managementcluster_provisioner_iam {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "add-binding:Add a role binding in the access policy for a provisioner"
+      "get-policy:Retrieve the access policy for a provisioner"
+      "remove-binding:Remove a role binding from the access policy for a provisioner"
+      "test-permission:Test permissions for a provisioner"
+      "update-policy:Update (overwrite) policy for a provisioner"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  add-binding)
+    _tmc_managementcluster_provisioner_iam_add-binding
+    ;;
+  get-policy)
+    _tmc_managementcluster_provisioner_iam_get-policy
+    ;;
+  remove-binding)
+    _tmc_managementcluster_provisioner_iam_remove-binding
+    ;;
+  test-permission)
+    _tmc_managementcluster_provisioner_iam_test-permission
+    ;;
+  update-policy)
+    _tmc_managementcluster_provisioner_iam_update-policy
+    ;;
+  esac
+}
+
+function _tmc_managementcluster_provisioner_iam_add-binding {
+  _arguments \
+    '(*-g *--groups)'{\*-g,\*--groups}'[comma-separated list of groups to include in the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to bind the users/groups to]:' \
+    '(*-u *--users)'{\*-u,\*--users}'[comma-separated list of users to include in the role binding]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_iam_get-policy {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_iam_remove-binding {
+  _arguments \
+    '(-g --group)'{-g,--group}'[group to remove from the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to remove the user/group from]:' \
+    '(-u --user)'{-u,--user}'[user to remove from the role binding]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_iam_test-permission {
+  _arguments \
+    '*--permission[permission to test]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_iam_update-policy {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file to update the access policy for a provisioner]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update a provisioner]' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_list {
+  _arguments \
+    '--all[list all the provisioners]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_managementcluster_provisioner_tanzukubernetescluster {
+  local -a commands
+
+  _arguments -C \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a tanzukubernetescluster object"
+      "list:Return a list of tanzukubernetesclusters"
+      "manage:Manage a tanzukubernetescluster"
+      "schema:Schema for the tanzukubernetescluster type"
+      "template:Templates for tanzukubernetescluster"
+      "unmanage:unmanage a tanzukubernetescluster"
+      "update:Update (overwrite) a tanzukubernetescluster"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_managementcluster_provisioner_tanzukubernetescluster_get
+    ;;
+  list)
+    _tmc_managementcluster_provisioner_tanzukubernetescluster_list
+    ;;
+  manage)
+    _tmc_managementcluster_provisioner_tanzukubernetescluster_manage
+    ;;
+  schema)
+    _tmc_managementcluster_provisioner_tanzukubernetescluster_schema
+    ;;
+  template)
+    _tmc_managementcluster_provisioner_tanzukubernetescluster_template
+    ;;
+  unmanage)
+    _tmc_managementcluster_provisioner_tanzukubernetescluster_unmanage
+    ;;
+  update)
+    _tmc_managementcluster_provisioner_tanzukubernetescluster_update
+    ;;
+  esac
+}
+
+function _tmc_managementcluster_provisioner_tanzukubernetescluster_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_tanzukubernetescluster_list {
+  _arguments \
+    '--all[list all the tanzukubernetesclusters]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_tanzukubernetescluster_manage {
+  _arguments \
+    '--cluster-group[target clustergroup to add the workload cluster]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_tanzukubernetescluster_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_managementcluster_provisioner_tanzukubernetescluster_template {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_managementcluster_provisioner_tanzukubernetescluster_template_get
+    ;;
+  list)
+    _tmc_managementcluster_provisioner_tanzukubernetescluster_template_list
+    ;;
+  esac
+}
+
+function _tmc_managementcluster_provisioner_tanzukubernetescluster_template_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_tanzukubernetescluster_template_list {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_tanzukubernetescluster_unmanage {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_tanzukubernetescluster_update {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file from which to update the tanzukubernetescluster]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the tanzukubernetescluster]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[name of the provisioner]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_managementcluster_provisioner_template {
+  local -a commands
+
+  _arguments -C \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_managementcluster_provisioner_template_get
+    ;;
+  list)
+    _tmc_managementcluster_provisioner_template_list
+    ;;
+  esac
+}
+
+function _tmc_managementcluster_provisioner_template_get {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_template_list {
+  _arguments \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_provisioner_update {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file from which to update the provisioner]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the provisioner]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[name of the management cluster]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_register {
+  _arguments \
+    '(-c --default-cluster-group)'{-c,--default-cluster-group}'[Default cluster group for workload clusters]:' \
+    '(-k --kubeconfig)'{-k,--kubeconfig}'[The kubeconfig file of the management cluster to use to automatically apply the Tanzu Mission Control resource manifest to complete registration]:' \
+    '(-p --kubernetes-provider-type)'{-p,--kubernetes-provider-type}'[indicates the k8s provider type, supported values are '\''TKGS'\'' and '\''TKG'\'']:' \
+    '(-o --output)'{-o,--output}'[Output file to write the Tanzu Mission Control resource manifest to for attaching a cluster]:' \
+    '--skip-verify[Skip the post-flight checks to confirm that the cluster register was successful]' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_reregister {
+  _arguments \
+    '(-k --kubeconfig)'{-k,--kubeconfig}'[The kubeconfig file of the actual cluster to use for applying the Tanzu Mission Control resource manifest]:' \
+    '(-o --output)'{-o,--output}'[Output file to write the Tanzu Mission Control resource manifest to for attaching a cluster]:' \
+    '--skip-verify[Skip the post-flight checks to confirm that the cluster register was successful]' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_managementcluster_template {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_managementcluster_template_get
+    ;;
+  list)
+    _tmc_managementcluster_template_list
+    ;;
+  esac
+}
+
+function _tmc_managementcluster_template_get {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_managementcluster_template_list {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_organization {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "iam:IAM policy for the resource"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  iam)
+    _tmc_organization_iam
+    ;;
+  esac
+}
+
+
+function _tmc_organization_iam {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "add-binding:Add role binding to users/groups in the IAM policy for the organization"
+      "get-policy:Get policy for the organization."
+      "remove-binding:Remove role binding from a user/group in the IAM policy for the organization"
+      "test-permission:Test permissions for the organization."
+      "update-policy:Update (overwrite) policy for the organization"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  add-binding)
+    _tmc_organization_iam_add-binding
+    ;;
+  get-policy)
+    _tmc_organization_iam_get-policy
+    ;;
+  remove-binding)
+    _tmc_organization_iam_remove-binding
+    ;;
+  test-permission)
+    _tmc_organization_iam_test-permission
+    ;;
+  update-policy)
+    _tmc_organization_iam_update-policy
+    ;;
+  esac
+}
+
+function _tmc_organization_iam_add-binding {
+  _arguments \
+    '(*-g *--groups)'{\*-g,\*--groups}'[comma separated groups to add role-binding to]:' \
+    '(-r --role)'{-r,--role}'[role name to bind the users/groups to]:' \
+    '(*-u *--users)'{\*-u,\*--users}'[comma separated users to add role-binding to]:'
+}
+
+function _tmc_organization_iam_get-policy {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:'
+}
+
+function _tmc_organization_iam_remove-binding {
+  _arguments \
+    '(-g --group)'{-g,--group}'[group to remove role-binding from]:' \
+    '(-r --role)'{-r,--role}'[role name to remove the user/group from]:' \
+    '(-u --user)'{-u,--user}'[user to remove role-binding from]:'
+}
+
+function _tmc_organization_iam_test-permission {
+  _arguments \
+    '*--permission[permission to test]:'
+}
+
+function _tmc_organization_iam_update-policy {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file to update organization]:' \
+    '(-i --interactive)'{-i,--interactive}'[update policy in interactive mode using your default editor]'
+}
+
+
+function _tmc_policy {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "effective:Effective policy applied on a resource."
+      "insight:Provide insight on the issues related to the policies which are applied on the resource."
+      "templates:A Policy Template wraps a Kubernetes resource that is a pre-requisite/dependency for creating policies."
+      "type:A Type defines the schema of policy instances."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  effective)
+    _tmc_policy_effective
+    ;;
+  insight)
+    _tmc_policy_insight
+    ;;
+  templates)
+    _tmc_policy_templates
+    ;;
+  type)
+    _tmc_policy_type
+    ;;
+  esac
+}
+
+
+function _tmc_policy_effective {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "list:Return a list of effective"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  list)
+    _tmc_policy_effective_list
+    ;;
+  esac
+}
+
+function _tmc_policy_effective_list {
+  _arguments \
+    '--all[list all the effective]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '--phase[filter by phase of the policy]:' \
+    '--target-resource-rid[filter by rid of target resource]:' \
+    '--target-resource-uid[filter by uid of target resource]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_policy_insight {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "list:Return a list of insights"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  list)
+    _tmc_policy_insight_list
+    ;;
+  esac
+}
+
+function _tmc_policy_insight_list {
+  _arguments \
+    '--all[list all the insights]' \
+    '--category[filter policy insights by category]:' \
+    '--cluster-group[filter policy insights by cluster_group]:' \
+    '--cluster-name[filter policy insights by cluster_name]:' \
+    '--issue-type[filter policy insights by issue_type]:' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--namespace[filter policy insights by namespace]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '--policy-name[filter policy insights by policy_name]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_policy_templates {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a template object"
+      "delete:Delete a template"
+      "get:Retrieve a template object"
+      "list:Return a list of templates"
+      "schema:Schema for the template type"
+      "template:Templates for template"
+      "update:Update (overwrite) a template"
+      "version:A Version of a policy template."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_policy_templates_create
+    ;;
+  delete)
+    _tmc_policy_templates_delete
+    ;;
+  get)
+    _tmc_policy_templates_get
+    ;;
+  list)
+    _tmc_policy_templates_list
+    ;;
+  schema)
+    _tmc_policy_templates_schema
+    ;;
+  template)
+    _tmc_policy_templates_template
+    ;;
+  update)
+    _tmc_policy_templates_update
+    ;;
+  version)
+    _tmc_policy_templates_version
+    ;;
+  esac
+}
+
+function _tmc_policy_templates_create {
+  _arguments \
+    '--description[Description of the policy definition (optional)]:' \
+    '--dry-run[Create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[Resource file from which to create a policy template]:' \
+    '--object-file[ObjectFile is the path to the file containing yaml-formatted kubernetes resource
+Currently, we only support OPA Gatekeeper based ConstraintTemplate resource in this file]:' \
+    '--object-type[ObjectType is the type of kubernetes resource (CRD) encoded in spec.object (default: ConstraintTemplate)
+Currently, we only support OPA Gatekeeper based ConstraintTemplate object]:' \
+    '--template-type[TemplateType is the type of policy template that is being created (default: OPAGatekeeper)
+Currently, we only support OPA Gatekeeper based policy definitions]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_policy_templates_delete {
+  _arguments \
+    '(-f --force)'{-f,--force}'[force delete a template]' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_policy_templates_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_policy_templates_list {
+  _arguments \
+    '--all[list all the templates]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_policy_templates_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_policy_templates_template {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_policy_templates_template_get
+    ;;
+  list)
+    _tmc_policy_templates_template_list
+    ;;
+  esac
+}
+
+function _tmc_policy_templates_template_get {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_policy_templates_template_list {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_policy_templates_update {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file from which to update the template]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the template]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_policy_templates_version {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a version object"
+      "list:Return a list of versions"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_policy_templates_version_get
+    ;;
+  list)
+    _tmc_policy_templates_version_list
+    ;;
+  esac
+}
+
+function _tmc_policy_templates_version_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '--template-name[name of the template]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_policy_templates_version_list {
+  _arguments \
+    '--all[list all the versions]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '--template-name[scope search to the specified template_name]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_policy_type {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a type object"
+      "list:Return a list of types"
+      "recipe:A Recipe is an internal template for policy type."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_policy_type_get
+    ;;
+  list)
+    _tmc_policy_type_list
+    ;;
+  recipe)
+    _tmc_policy_type_recipe
+    ;;
+  esac
+}
+
+function _tmc_policy_type_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_policy_type_list {
+  _arguments \
+    '--all[list all the types]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_policy_type_recipe {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a recipe object"
+      "list:Return a list of recipes"
+      "version:A Version of a policy recipe."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_policy_type_recipe_get
+    ;;
+  list)
+    _tmc_policy_type_recipe_list
+    ;;
+  version)
+    _tmc_policy_type_recipe_version
+    ;;
+  esac
+}
+
+function _tmc_policy_type_recipe_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '--type-name[name of the type]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_policy_type_recipe_list {
+  _arguments \
+    '--all[list all the recipes]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '--type-name[scope search to the specified type_name]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_policy_type_recipe_version {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a version object"
+      "list:Return a list of versions"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_policy_type_recipe_version_get
+    ;;
+  list)
+    _tmc_policy_type_recipe_version_list
+    ;;
+  esac
+}
+
+function _tmc_policy_type_recipe_version_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '--recipe-name[name of the recipe]:' \
+    '--type-name[name of the type]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_policy_type_recipe_version_list {
+  _arguments \
+    '--all[list all the versions]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '--recipe-name[scope search to the specified recipe_name]:' \
+    '--type-name[scope search to the specified type_name]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_system {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "context:Manage client authentication and configuration"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  context)
+    _tmc_system_context
+    ;;
+  esac
+}
+
+
+function _tmc_system_context {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "configure:Configure the current context environment"
+      "create:Create a context."
+      "current:View the current context."
+      "delete:Delete a context."
+      "get:Get a context."
+      "list:List all contexts."
+      "template:Templates for the system context."
+      "update:Update a context."
+      "use:Switch to a different context."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  configure)
+    _tmc_system_context_configure
+    ;;
+  create)
+    _tmc_system_context_create
+    ;;
+  current)
+    _tmc_system_context_current
+    ;;
+  delete)
+    _tmc_system_context_delete
+    ;;
+  get)
+    _tmc_system_context_get
+    ;;
+  list)
+    _tmc_system_context_list
+    ;;
+  template)
+    _tmc_system_context_template
+    ;;
+  update)
+    _tmc_system_context_update
+    ;;
+  use)
+    _tmc_system_context_use
+    ;;
+  esac
+}
+
+function _tmc_system_context_configure {
+  _arguments \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode to configure environment defaults]' \
+    '(-l --log-level)'{-l,--log-level}'[set log level for the current context (default '\''info'\'')]:' \
+    '(-m --management-cluster-name)'{-m,--management-cluster-name}'[set management cluster name for the current context]:' \
+    '(-p --provisioner-name)'{-p,--provisioner-name}'[set provisioner name for the current context]:'
+}
+
+function _tmc_system_context_create {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file to create context]:' \
+    '(-n --name)'{-n,--name}'[name for the login context]:' \
+    '(-c --no-configure)'{-c,--no-configure}'[just login, do not configure the environment]'
+}
+
+function _tmc_system_context_current {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format {`yaml` | `json`}]:'
+}
+
+function _tmc_system_context_delete {
+  _arguments
+}
+
+function _tmc_system_context_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format {`yaml` | `json`}]:'
+}
+
+function _tmc_system_context_list {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format {`yaml` | `json`}]:'
+}
+
+
+function _tmc_system_context_template {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Get a template"
+      "list:List templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_system_context_template_get
+    ;;
+  list)
+    _tmc_system_context_template_list
+    ;;
+  esac
+}
+
+function _tmc_system_context_template_get {
+  _arguments
+}
+
+function _tmc_system_context_template_list {
+  _arguments
+}
+
+function _tmc_system_context_update {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file to create context]:'
+}
+
+function _tmc_system_context_use {
+  _arguments
+}
+
+function _tmc_update {
+  _arguments
+}
+
+function _tmc_version {
+  _arguments
+}
+
+
+function _tmc_workspace {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "create:Create a workspace object"
+      "delete:Delete a workspace"
+      "get:Retrieve a workspace object"
+      "iam:Access policy for a workspace"
+      "list:Return a list of workspaces"
+      "schema:Schema for the workspace type"
+      "template:Templates for workspace"
+      "update:Update (overwrite) a workspace"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  create)
+    _tmc_workspace_create
+    ;;
+  delete)
+    _tmc_workspace_delete
+    ;;
+  get)
+    _tmc_workspace_get
+    ;;
+  iam)
+    _tmc_workspace_iam
+    ;;
+  list)
+    _tmc_workspace_list
+    ;;
+  schema)
+    _tmc_workspace_schema
+    ;;
+  template)
+    _tmc_workspace_template
+    ;;
+  update)
+    _tmc_workspace_update
+    ;;
+  esac
+}
+
+function _tmc_workspace_create {
+  _arguments \
+    '--dry-run[create the data model only, do not apply to server]' \
+    '(-f --file)'{-f,--file}'[resource file from which to create a workspace]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to create the workspace]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_workspace_delete {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_workspace_get {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_workspace_iam {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "add-binding:Add a role binding in the access policy for a workspace"
+      "get-policy:Retrieve the access policy for a workspace"
+      "remove-binding:Remove a role binding from the access policy for a workspace"
+      "test-permission:Test permissions for a workspace"
+      "update-policy:Update (overwrite) policy for a workspace"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  add-binding)
+    _tmc_workspace_iam_add-binding
+    ;;
+  get-policy)
+    _tmc_workspace_iam_get-policy
+    ;;
+  remove-binding)
+    _tmc_workspace_iam_remove-binding
+    ;;
+  test-permission)
+    _tmc_workspace_iam_test-permission
+    ;;
+  update-policy)
+    _tmc_workspace_iam_update-policy
+    ;;
+  esac
+}
+
+function _tmc_workspace_iam_add-binding {
+  _arguments \
+    '(*-g *--groups)'{\*-g,\*--groups}'[comma-separated list of groups to include in the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to bind the users/groups to]:' \
+    '(*-u *--users)'{\*-u,\*--users}'[comma-separated list of users to include in the role binding]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_workspace_iam_get-policy {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml | json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_workspace_iam_remove-binding {
+  _arguments \
+    '(-g --group)'{-g,--group}'[group to remove from the role binding]:' \
+    '(-r --role)'{-r,--role}'[role name to remove the user/group from]:' \
+    '(-u --user)'{-u,--user}'[user to remove from the role binding]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_workspace_iam_test-permission {
+  _arguments \
+    '*--permission[permission to test]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_workspace_iam_update-policy {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file to update the access policy for a workspace]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update a workspace]' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_workspace_list {
+  _arguments \
+    '--all[list all the workspaces]' \
+    '--max-size[number of records to return]:' \
+    '--name[scope search to the specified name]:' \
+    '--offset[offset at which to start returning records]:' \
+    '(-o --output)'{-o,--output}'[output format (yaml|json)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_workspace_schema {
+  _arguments \
+    '(-o --output)'{-o,--output}'[output format (yaml|json|proto)]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+
+function _tmc_workspace_template {
+  local -a commands
+
+  _arguments -C \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "get:Retrieve a template"
+      "list:Return a list of templates"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  get)
+    _tmc_workspace_template_get
+    ;;
+  list)
+    _tmc_workspace_template_list
+    ;;
+  esac
+}
+
+function _tmc_workspace_template_get {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_workspace_template_list {
+  _arguments \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
+function _tmc_workspace_update {
+  _arguments \
+    '(-f --file)'{-f,--file}'[resource file from which to update the workspace]:' \
+    '(-i --interactive)'{-i,--interactive}'[use interactive mode in your default editor to update the workspace]' \
+    '(-t --template)'{-t,--template}'[template to use]:' \
+    '(-v --verbosity)'{-v,--verbosity}'[log verbosity (0-4)]:'
+}
+
