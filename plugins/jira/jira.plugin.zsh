@@ -43,14 +43,10 @@ function jira() {
     echo "Opening new issue"
     open_command "${jira_url}/secure/CreateIssue!default.jspa"
   elif [[ "$action" == "assigned" || "$action" == "reported" ]]; then
-<<<<<<< HEAD
-    _jira_query $@
+    _jira_query ${@:-$action}
   elif [[ "$action" == "myissues" ]]; then
     echo "Opening my issues"
     open_command "${jira_url}/issues/?filter=-1"
-=======
-    _jira_query ${@:-$action}
->>>>>>> 81ed2561... jira: fix error when assigned or reported are default (#7731)
   elif [[ "$action" == "dashboard" ]]; then
     echo "Opening dashboard"
     if [[ "$JIRA_RAPID_BOARD" == "true" ]]; then
