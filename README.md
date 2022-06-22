@@ -1,6 +1,6 @@
 <p align="center"><img src="https://ohmyzsh.s3.amazonaws.com/omz-ansi-github.png" alt="Oh My Zsh"></p>
 
-# Oh My ZSH Cutomizations
+# Oh My ZSH Customizations
 
 Customizations for Oh My ZSH that replace my old fork of the repo to get my customizations in.
 
